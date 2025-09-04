@@ -1,0 +1,251 @@
+{
+  "collections": {
+    "users": {
+      "fields": {
+        "uid": {
+          "type": "string",
+          "required": true,
+          "description": "Firebase Auth UID"
+        },
+        "email": {
+          "type": "string",
+          "required": true,
+          "description": "ユーザーメールアドレス"
+        },
+        "displayName": {
+          "type": "string",
+          "required": false,
+          "description": "表示名"
+        },
+        "role": {
+          "type": "string",
+          "enum": ["user", "admin"],
+          "default": "user",
+          "description": "ユーザーロール"
+        },
+        "subscriptionStatus": {
+          "type": "string",
+          "enum": ["none", "active", "canceled", "expired"],
+          "default": "none",
+          "description": "サブスクリプション状態"
+        },
+        "subscriptionPlan": {
+          "type": "string",
+          "enum": ["basic", "premium", "enterprise"],
+          "required": false,
+          "description": "サブスクリプションプラン"
+        },
+        "createdAt": {
+          "type": "timestamp",
+          "required": true,
+          "description": "作成日時"
+        },
+        "lastLoginAt": {
+          "type": "timestamp",
+          "required": false,
+          "description": "最終ログイン日時"
+        }
+      }
+    },
+    "subscriptions": {
+      "fields": {
+        "userId": {
+          "type": "string",
+          "required": true,
+          "description": "ユーザーID"
+        },
+        "planId": {
+          "type": "string",
+          "required": true,
+          "description": "プランID"
+        },
+        "status": {
+          "type": "string",
+          "enum": ["active", "canceled", "expired"],
+          "required": true,
+          "description": "サブスクリプション状態"
+        },
+        "currentPeriodStart": {
+          "type": "timestamp",
+          "required": true,
+          "description": "現在の期間開始日"
+        },
+        "currentPeriodEnd": {
+          "type": "timestamp",
+          "required": true,
+          "description": "現在の期間終了日"
+        },
+        "stripeSubscriptionId": {
+          "type": "string",
+          "required": true,
+          "description": "Stripe サブスクリプションID"
+        },
+        "createdAt": {
+          "type": "timestamp",
+          "required": true,
+          "description": "作成日時"
+        }
+      }
+    },
+    "products": {
+      "fields": {
+        "name": {
+          "type": "string",
+          "required": true,
+          "description": "商品名"
+        },
+        "description": {
+          "type": "string",
+          "required": false,
+          "description": "商品説明"
+        },
+        "price": {
+          "type": "number",
+          "required": true,
+          "description": "価格（円）"
+        },
+        "category": {
+          "type": "string",
+          "required": true,
+          "description": "カテゴリー"
+        },
+        "imageUrls": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "商品画像URL配列"
+        },
+        "isActive": {
+          "type": "boolean",
+          "default": true,
+          "description": "アクティブフラグ"
+        },
+        "createdAt": {
+          "type": "timestamp",
+          "required": true,
+          "description": "作成日時"
+        }
+      }
+    },
+    "tasks": {
+      "fields": {
+        "title": {
+          "type": "string",
+          "required": true,
+          "description": "タスクタイトル"
+        },
+        "description": {
+          "type": "string",
+          "required": false,
+          "description": "タスク説明"
+        },
+        "assignedTo": {
+          "type": "string",
+          "required": false,
+          "description": "担当者UID"
+        },
+        "status": {
+          "type": "string",
+          "enum": ["todo", "in_progress", "completed"],
+          "default": "todo",
+          "description": "タスク状態"
+        },
+        "priority": {
+          "type": "string",
+          "enum": ["low", "medium", "high"],
+          "default": "medium",
+          "description": "優先度"
+        },
+        "dueDate": {
+          "type": "timestamp",
+          "required": false,
+          "description": "期限日"
+        },
+        "createdAt": {
+          "type": "timestamp",
+          "required": true,
+          "description": "作成日時"
+        },
+        "updatedAt": {
+          "type": "timestamp",
+          "required": false,
+          "description": "更新日時"
+        }
+      }
+    },
+    "ai_suggestions": {
+      "fields": {
+        "userId": {
+          "type": "string",
+          "required": true,
+          "description": "対象ユーザーUID"
+        },
+        "category": {
+          "type": "string",
+          "enum": ["efficiency", "ui_improvement", "performance", "feature"],
+          "required": true,
+          "description": "提案カテゴリー"
+        },
+        "title": {
+          "type": "string",
+          "required": true,
+          "description": "提案タイトル"
+        },
+        "content": {
+          "type": "string",
+          "required": true,
+          "description": "提案内容"
+        },
+        "status": {
+          "type": "string",
+          "enum": ["pending", "accepted", "dismissed"],
+          "default": "pending",
+          "description": "提案状態"
+        },
+        "priority": {
+          "type": "number",
+          "min": 1,
+          "max": 10,
+          "default": 5,
+          "description": "優先度（1-10）"
+        },
+        "createdAt": {
+          "type": "timestamp",
+          "required": true,
+          "description": "作成日時"
+        }
+      }
+    }
+  },
+  "security_rules": {
+    "description": "Firestore セキュリティルール設定",
+    "rules": [
+      {
+        "collection": "users",
+        "read": "resource.data.uid == request.auth.uid || request.auth.token.role == 'admin'",
+        "write": "resource.data.uid == request.auth.uid || request.auth.token.role == 'admin'"
+      },
+      {
+        "collection": "subscriptions",
+        "read": "resource.data.userId == request.auth.uid || request.auth.token.role == 'admin'",
+        "write": "request.auth.token.role == 'admin'"
+      },
+      {
+        "collection": "products",
+        "read": "true",
+        "write": "request.auth.token.role == 'admin'"
+      },
+      {
+        "collection": "tasks",
+        "read": "resource.data.assignedTo == request.auth.uid || request.auth.token.role == 'admin'",
+        "write": "resource.data.assignedTo == request.auth.uid || request.auth.token.role == 'admin'"
+      },
+      {
+        "collection": "ai_suggestions",
+        "read": "resource.data.userId == request.auth.uid",
+        "write": "false"
+      }
+    ]
+  }
+}

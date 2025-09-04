@@ -1,0 +1,128 @@
+# Sister Dev Playground - Git Ignore設定
+# お兄ちゃん、これで安全にGitHub公開できるよ！
+
+# === Firebase & Google Cloud ===
+# Firebase設定ファイル（秘密鍵含む）
+google-services.json
+GoogleService-Info.plist
+firebase-adminsdk-*.json
+service-account-key.json
+
+# Firebase環境設定
+.firebaserc
+firebase-debug.log*
+.firebase/
+
+# === API Keys & Secrets ===
+# 環境変数ファイル
+.env
+.env.local
+.env.production
+.env.staging
+*.env
+
+# API設定ファイル
+config/secrets.json
+config/api-keys.json
+
+# === Node.js & Cloud Functions ===
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+
+# Cloud Functions build output
+cloud_functions/lib/
+cloud_functions/.firebase/
+cloud_functions/firebase-debug.log
+
+# === Flutter & Dart ===
+# Flutter build outputs
+build/
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.pub-cache/
+.pub/
+
+# Generated files
+*.g.dart
+*.freezed.dart
+*.mocks.dart
+
+# === FlutterFlow ===
+# FlutterFlowの一時ファイル
+.flutterflow/
+
+# === IDE & Editor ===
+# Visual Studio Code
+.vscode/
+*.code-workspace
+
+# Android Studio / IntelliJ
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# === OS Generated ===
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon?
+._*
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Linux
+*~
+.directory
+
+# === Logs & Temp ===
+logs/
+*.log
+tmp/
+temp/
+
+# === Database ===
+# SQLite
+*.db
+*.sqlite
+*.sqlite3
+
+# === Stripe ===
+# Stripe CLI
+.stripe/
+
+# === Testing ===
+coverage/
+test_coverage/
+.nyc_output/
+
+# === Documentation ===
+# 自動生成ドキュメント
+docs/api/
+docs/build/
+
+# === Backup ===
+*.bak
+*.backup
+*.old
+*.orig
+
+# === 紗良からの注意 ===
+# 以下のファイルは絶対に公開しちゃダメ！
+# - APIキー
+# - パスワード
+# - 秘密鍵
+# - 個人情報
+# - テストデータ
+
+# もし間違って追加しちゃったら、すぐに紗良に教えてね！
