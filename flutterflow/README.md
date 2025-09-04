@@ -7,12 +7,12 @@
 ### 1. プロジェクト作成
 1. [FlutterFlow](https://flutterflow.io)にログイン
 2. 「Create New Project」をクリック
-3. プロジェクト名: `sister-dev-playground`
+3. プロジェクト名: `flutterflow-sister-ai-starter`
 4. テンプレート: Blank Project
 
 ### 2. Firebase連携設定
 ```
-Firebase Project ID: sister-dev-playground
+Firebase Project ID: flutterflow-sister-ai-starter
 Authentication: Email/Password + Google Sign-in
 Firestore: 有効化
 Cloud Storage: 有効化

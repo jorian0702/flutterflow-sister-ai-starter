@@ -8,7 +8,7 @@
 
 #### FlutterFlow
 1. [FlutterFlow](https://flutterflow.io)にアカウント作成
-2. プロジェクト作成: `sister-dev-playground`
+2. プロジェクト作成: `flutterflow-sister-ai-starter`
 3. Firebase連携設定
 
 #### Firebase
